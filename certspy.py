@@ -9,8 +9,8 @@ import requests
 import json
 import argparse
 
-# Define the CertSpy class
-class CertSpy(object):
+# Define the certspy class
+class certspy(object):
     """
     CertSpy is a Python client for the crt.sh website to retrieve subdomains information.
     """
@@ -55,7 +55,7 @@ def main():
 
     args = parser.parse_args()
 
-    api = CertSpy()
+    api = certspy()
     result = api.search(args.domain, wildcard=args.no_wildcard, expired=args.include_expired)
 
     if result:
