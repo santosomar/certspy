@@ -4,25 +4,16 @@ This is a Python client for the crt.sh website to retrieve subdomains informatio
 Version: 1.0
 '''
 
+# Import the required libraries 
 import requests
-import argparse
 import json
+import argparse
 
-class CrtshClient:
-    """A Python client for the crt.sh website to retrieve subdomains information."""
-    
-    def __init__(self):
-        self.base_url = "https://crt.sh/?q={}&output=json"
-        self.user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1'
-        
-    def build_url(self, domain, wildcard=True, expired=True):
-        """Builds the request URL based on the given parameters."""
-        if not expired:
-            self.base_url += "&exclude=expired"
-        if wildcard and "%" not in domain:
-            domain = f"%.{domain}"
-        return self.base_url.format(domain)
-    
+# Define the CertSpy class
+class CertSpy(object):
+    """
+    CertSpy is a Python client for the crt.sh website to retrieve subdomains information.
+    """
     def search(self, domain, wildcard=True, expired=True):
         """
         Search crt.sh for the given domain and returns a list of certificate data.
@@ -32,33 +23,43 @@ class CrtshClient:
         :param expired: Whether to include expired certificates. Default is True.
         :return: List of certificate data objects.
         """
-        url = self.build_url(domain, wildcard, expired)
-        response = requests.get(url, headers={'User-Agent': self.user_agent})
-        
-        if response.ok:
+        base_url = "https://crt.sh/?q={}&output=json"
+        if not expired:
+            base_url = base_url + "&exclude=expired"
+        if wildcard and "%" not in domain:
+            domain = "%.{}".format(domain)
+        url = base_url.format(domain)
+
+        ua = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1'
+        req = requests.get(url, headers={'User-Agent': ua})
+
+        if req.ok:
             try:
-                return response.json()
-            except ValueError as err:
-                print(f"Error decoding JSON: {err}")
+                content = req.content.decode('utf-8')
+                data = json.loads(content)
+                return data
+            except ValueError:
+                data = json.loads("[{}]".format(content.replace('}{', '},{')))
+                return data
             except Exception as err:
-                print(f"An unexpected error occurred: {err}")
-        else:
-            response.raise_for_status()
+                print(f"Error retrieving information: {err}")
         return None
-    
 
 def main():
     parser = argparse.ArgumentParser(description="""
     CertSPY: A Python client for the crt.sh website to retrieve subdomains information.
     Author: Omar Santos (@santosomar). """, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("domain", help="The domain to search for (e.g., websploit.org).")
+    parser.add_argument('domain', help='Domain to search for')
+    parser.add_argument('--no-wildcard', action='store_false', help='Do not prepend a wildcard to the domain')
+    parser.add_argument('--include-expired', action='store_true', help='Include expired certificates in the search')
+
     args = parser.parse_args()
-    
-    client = CrtshClient()
-    result = client.search(args.domain)
+
+    api = CertSpy()
+    result = api.search(args.domain, wildcard=args.no_wildcard, expired=args.include_expired)
+
     if result:
-        for entry in result:
-            print(json.dumps(entry, indent=4))
-    
+        print(json.dumps(result, indent=4))
+
 if __name__ == "__main__":
     main()
