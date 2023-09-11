@@ -12,15 +12,11 @@ setup(
             'certspy=certspy:main',  
         ],
     },
-    author="Omar Santos",
-    author_email="santosomar@gmail.com"
+    author='Omar Santos',
+    author_email='santosomar@gmail.com',
     description='A Python client for the crt.sh website to retrieve subdomains information',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/santosomar/certspy',
     license='BSD 3-Clause License',
-    classifiers=[
-        'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: BSD License',
-    ],
 )
