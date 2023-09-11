@@ -2,17 +2,18 @@ from setuptools import setup, find_packages
 
 setup(
     name='certspy',
-    version='0.1',
+    version='0.3.0',
     packages=find_packages(),
     install_requires=[
         'requests',
     ],
     entry_points={
         'console_scripts': [
-            'certspy=certspy.certspy.py:main',  
+            'certspy=certspy:main',  
         ],
     },
-    author='Omar Santos',
+    author="Omar Santos",
+    author_email="santosomar@gmail.com"
     description='A Python client for the crt.sh website to retrieve subdomains information',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
