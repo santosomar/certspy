@@ -1,7 +1,7 @@
 '''
 This is a Python client for the crt.sh website to retrieve subdomains information.
 @Author: Omar Santos @santosomar
-Version: 1.0
+Version: 0.8.0
 '''
 
 # Import the required libraries 
