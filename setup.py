@@ -2,14 +2,14 @@ from setuptools import setup, find_packages
 
 setup(
     name='certspy',
-    version='0.7.0',
+    version='0.8.0',
     packages=find_packages(),
     install_requires=[
         'requests',
     ],
     entry_points={
         'console_scripts': [
-            'certspy=certspy:main',  
+            'certspy=certspy.certspy:main',  
         ],
     },
     author='Omar Santos',
