@@ -14,6 +14,10 @@ dependencies = [
     "requests",
 ]
 
+[tool.poetry.dependencies]
+python = ">=3.7"
+requests = "^2.25.1"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["certspy"]
