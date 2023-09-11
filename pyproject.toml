@@ -2,21 +2,20 @@
 requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
-[project]
+[tool.poetry]
 name = "certspy"
 version = "0.2.0"
 description = "A Python client for the crt.sh website to retrieve subdomains information."
 readme = "README.md"
-requires-python = ">=3.7"
-authors = [{name = "Omar Santos", email = "santosomar@gmail.com"}]
+authors = ["Omar Santos <santosomar@gmail.com>"]
+keywords = ["certificate", "crt.sh", "subdomains", "security", "osint"]
 license = "BSD-3-Clause"
-dependencies = [
-    "requests",
-]
+
 
 [tool.poetry.dependencies]
 python = ">=3.7"
 requests = "^2.25.1"
+
 
 [tool.setuptools.packages.find]
 where = ["src"]
