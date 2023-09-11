@@ -9,7 +9,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'certspy=certspy.yourscript:main',  # Remember to replace 'yourscript' with the actual script file name
+            'certspy=certspy.certspy.py:main',  
         ],
     },
     author='Omar Santos',
