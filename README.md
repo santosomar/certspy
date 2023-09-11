@@ -1,4 +1,5 @@
 # CertSPY - A Crt.sh Python Client
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Dependabot](https://img.shields.io/badge/dependabot-025E8C?style=for-the-badge&logo=dependabot&logoColor=white)
 
 CertSPY is a Python client for interfacing with the [crt.sh](https://crt.sh/) website, allowing users to retrieve information on subdomains from SSL certificate transparency logs.
 
