@@ -12,10 +12,10 @@ Certificate Transparency (CT) is an open framework aimed at improving the safety
 
 ## Installation
 
-You can clone the repository to your local machine using the following command:
+You can install CertSPY using the `pip` command:
 
 ```sh
-git clone https://github.com/santosomar/certspy.git
+pip install certspy
 ```
 
 ## Dependencies
@@ -23,18 +23,12 @@ git clone https://github.com/santosomar/certspy.git
 - Python 3.x
 - `requests` library
 
-You can install the necessary Python packages using the following command:
-
-```sh
-pip install -r requirements.txt
-```
-
 ## Usage
 
 You can use the client from the command line with the following syntax:
 
 ```sh
-python crtsh_client.py secretcorp.org
+certspy.py secretcorp.org
 ```
 
 This will query the crt.sh website for subdomains of `secretcorp.org` and pretty print the JSON output to the console.
@@ -52,6 +46,96 @@ positional arguments:
 options:
   -h, --help  show this help message and exit
 ```
+
+For example:
+
+```sh
+$ certspy secretcorp.org
+[
+    {
+        "issuer_ca_id": 183267,
+        "issuer_name": "C=US, O=Let's Encrypt, CN=R3",
+        "common_name": "secretcorp.org",
+        "name_value": "secretcorp.org",
+        "id": 10254588889,
+        "entry_timestamp": "2023-08-30T08:49:46.284",
+        "not_before": "2023-08-30T07:49:06",
+        "not_after": "2023-11-28T07:49:05",
+        "serial_number": "046cb5a18ef41e26f9867cfdb61d28452047"
+    },
+    {
+        "issuer_ca_id": 183267,
+        "issuer_name": "C=US, O=Let's Encrypt, CN=R3",
+        "common_name": "mail.secretcorp.org",
+        "name_value": "mail.secretcorp.org",
+        "id": 10039294064,
+        "entry_timestamp": "2023-08-01T04:19:56.363",
+        "not_before": "2023-08-01T03:19:55",
+        "not_after": "2023-10-30T03:19:54",
+        "serial_number": "049b42b3d9dfad81b882209188f2dd3416e4"
+    },
+    {
+        "issuer_ca_id": 183267,
+        "issuer_name": "C=US, O=Let's Encrypt, CN=R3",
+        "common_name": "app1.secretcorp.org",
+        "name_value": "app1.secretcorp.org",
+        "id": 10038384450,
+        "entry_timestamp": "2023-08-01T01:00:56.816",
+        "not_before": "2023-08-01T00:00:56",
+        "not_after": "2023-10-30T00:00:55",
+        "serial_number": "046bbf0c4112b9c2a1a8b30d8e50c8050264"
+    },
+    {
+        "issuer_ca_id": 183267,
+        "issuer_name": "C=US, O=Let's Encrypt, CN=R3",
+        "common_name": "app1.secretcorp.org",
+        "name_value": "app1.secretcorp.org",
+        "id": 10101930727,
+        "entry_timestamp": "2023-08-01T01:00:56.476",
+        "not_before": "2023-08-01T00:00:56",
+        "not_after": "2023-10-30T00:00:55",
+        "serial_number": "046bbf0c4112b9c2a1a8b30d8e50c8050264"
+    },
+    {
+        "issuer_ca_id": 183267,
+        "issuer_name": "C=US, O=Let's Encrypt, CN=R3",
+        "common_name": "internal.secretcorp.org",
+        "name_value": "internal.secretcorp.org",
+        "id": 10139355714,
+        "entry_timestamp": "2023-07-31T22:56:26.114",
+        "not_before": "2023-07-31T21:56:25",
+        "not_after": "2023-10-29T21:56:24",
+        "serial_number": "04f8357ed61e079460ed7d0bdb767ac49652"
+    },
+    {
+        "issuer_ca_id": 183267,
+        "issuer_name": "C=US, O=Let's Encrypt, CN=R3",
+        "common_name": "internal.secretcorp.org",
+        "name_value": "internal.secretcorp.org",
+        "id": 10101183289,
+        "entry_timestamp": "2023-07-31T22:56:25.812",
+        "not_before": "2023-07-31T21:56:25",
+        "not_after": "2023-10-29T21:56:24",
+        "serial_number": "04f8357ed61e079460ed7d0bdb767ac49652"
+    },
+    {
+        "issuer_ca_id": 183267,
+        "issuer_name": "C=US, O=Let's Encrypt, CN=R3",
+        "common_name": "cloud.secretcorp.org",
+        "name_value": "cloud.secretcorp.org",
+        "id": 10138072059,
+        "entry_timestamp": "2023-07-31T20:15:24.822",
+        "not_before": "2023-07-31T19:15:24",
+        "not_after": "2023-10-29T19:15:23",
+        "serial_number": "03efca1ae2f0688ac75231e58a0401716f0f"
+    },
+    <output omitted for brevity>
+]
+```
+
+
+
+
 
 ## Contribution
 
