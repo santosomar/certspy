@@ -4,6 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "certspy"
+name = "certspy"
+version = "0.5.0"
+description = "A Python client for the crt.sh website to retrieve subdomains information."
+readme = "README.md"
+authors = ["Omar Santos <santosomar@gmail.com>"]
+keywords = ["certificate", "crt.sh", "subdomains", "security", "osint", "reconnaissance", "certspy", "ethical hacking", "pentesting", "red teaming", "bug bounty"]
+license = "BSD-3-Clause"
 
 [tool.poetry]
 name = "certspy"
