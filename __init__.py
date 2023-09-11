@@ -1,1 +1,1 @@
-from certspy import CertSpy
+from certspy import certspy
