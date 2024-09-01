@@ -1,5 +1,5 @@
 __author__ = "Omar Santos (@santosomar)"
-__version__ = "0.8.0"
+__version__ = "0.9.0"
 __description__ = "A Python client for the crt.sh website to retrieve subdomains information."
 
 # Import the required libraries 
@@ -31,6 +31,7 @@ class certspy(object):
         ua = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1'
         req = requests.get(url, headers={'User-Agent': ua})
 
+        # Check if the request was successful 
         if req.ok:
             try:
                 content = req.content.decode('utf-8')
@@ -43,21 +44,45 @@ class certspy(object):
                 print(f"Error retrieving information: {err}")
         return None
 
+    def format_results(self, data, common_name_only=False):
+        """
+        Format the results based on the common_name_only flag.
+        
+        :param data: List of certificate data objects.
+        :param common_name_only: Whether to return only common names. Default is False.
+        :return: Formatted results (list of common names or full data).
+        """
+        if common_name_only:
+            return list(set(item['common_name'] for item in data))
+        return data
+
 def main():
+    """
+    Main function to parse arguments and execute the search.
+    """
     parser = argparse.ArgumentParser(description="""
     CertSPY: A Python client for the crt.sh website to retrieve subdomains information.
     Author: Omar Santos (@santosomar). """, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('domain', help='Domain to search for')
-    parser.add_argument('--no-wildcard', action='store_false', help='Do not prepend a wildcard to the domain')
-    parser.add_argument('--include-expired', action='store_true', help='Include expired certificates in the search')
+    parser.add_argument('--no-wildcard', action='store_true', help='Do not prepend a wildcard to the domain.')
+    parser.add_argument('--include-expired', action='store_true', help='Include expired certificates in the search.')
+    parser.add_argument('--common-name-only', action='store_true', help='Show only the hostnames in the common name field of the certificate.')
+    parser.add_argument('--output', '-o', help='Save output to a JSON file. You need to specify the path and name of the output file.')
 
     args = parser.parse_args()
 
     api = certspy()
-    result = api.search(args.domain, wildcard=args.no_wildcard, expired=args.include_expired)
+    result = api.search(args.domain, wildcard=not args.no_wildcard, expired=not args.include_expired)
 
     if result:
-        print(json.dumps(result, indent=4))
+        formatted_result = api.format_results(result, common_name_only=args.common_name_only)
+        
+        if args.output:
+            with open(args.output, 'w') as f:
+                json.dump(formatted_result, f, indent=4)
+            print(f"Hack the Planet! Results successfully saved to {args.output}")
+        else:
+            print(json.dumps(formatted_result, indent=4))
 
 if __name__ == "__main__":
     main()
