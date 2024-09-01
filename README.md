@@ -10,6 +10,9 @@ Certificate Transparency (CT) is an open framework aimed at improving the safety
 - Query subdomain information from crt.sh.
 - Support for wildcard and expired certificate queries.
 - Command-line interface for easy usage.
+- Option to save results to a file.
+- Ability to display only the common names of certificates.
+
 
 ## Installation
 
@@ -36,16 +39,21 @@ This will query the crt.sh website for subdomains of `secretcorp.org` and pretty
 
 ```sh
 $ python3 certspy.py -h
-usage: certspy.py [-h] domain
+usage: certspy.py [-h] [--no-wildcard] [--include-expired] [--common-name-only] [--output OUTPUT] domain
 
     CertSPY: A Python client for the crt.sh website to retrieve subdomains information.
-    Author: Omar Santos (@santosomar). 
+    Author: Omar Santos (@santosomar).
 
 positional arguments:
-  domain      The domain to search for (e.g., websploit.org).
+  domain                Domain to search for
 
-options:
-  -h, --help  show this help message and exit
+optional arguments:
+  -h, --help            show this help message and exit
+  --no-wildcard         Do not prepend a wildcard to the domain.
+  --include-expired     Include expired certificates in the search.
+  --common-name-only    Show only the hostnames in the common name field of the certificate.
+  --output OUTPUT, -o OUTPUT
+                        Save output to a JSON file. You need to specify the path and name of the output file.
 ```
 
 For example:
@@ -134,8 +142,25 @@ $ certspy secretcorp.org
 ]
 ```
 
+To show only the common names of the certificates, you can use the `--common-name-only` flag:
 
+```sh
+$ certspy secretcorp.org --common-name-only
+[
+    "secretcorp.org",
+    "mail.secretcorp.org",
+    "app1.secretcorp.org",
+    "internal.secretcorp.org",
+    "cloud.secretcorp.org",
+    <output omitted for brevity>
+]
+```
 
+To save the results to a file, you can use the `--output` flag:
+
+```sh
+$ certspy secretcorp.org --output results.json
+```
 
 
 ## Contribution
